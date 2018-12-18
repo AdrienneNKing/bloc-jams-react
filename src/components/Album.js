@@ -51,7 +51,10 @@ class Album extends Component {
     if (this.state.isHovered && this.state.isHovered.audioSrc === song.audioSrc) {
       if (this.state.isPlaying && isSameSong) {
         return (<ion-icon name="pause" />);
-      } else {
+      }
+      if (this.state.isPaused && isSameSong) {
+        return (<ion-icon name="pause" />);
+       } else {
         return (<ion-icon name="play" />);
       }
     }
@@ -89,7 +92,7 @@ class Album extends Component {
                 key={index}
                 onClick={() => this.handleSongClick(song)}
                 onMouseEnter={() => this.handleSongHover(song)}
-                onMouseLeave={() =>this.handleSongHover()}>
+                onMouseLeave={() =>this.handleSongHover(song)}>
                   <div id="songs-table-div">
                     <tr>{this.renderNumber(song, index + 1)}</tr>
                     <tr>{song.title}</tr>
