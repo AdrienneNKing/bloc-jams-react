@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import albumData from '../data/albums';
+import PlayerBar from './PlayerBar';
 
 
 class Album extends Component {
@@ -46,16 +47,24 @@ class Album extends Component {
     }
   }
 
+handlePrevClick() {
+  const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+  const newIndex = Math.max(0, currentIndex - 1);
+  const newSong = this.state.album.songs[newIndex];
+  this.setSong(newSong);
+  this.play();
+}
+
   renderNumber(song, songNumber) {
     var isSameSong = this.state.currentSong ===song;
     if (this.state.isHovered && this.state.isHovered.audioSrc === song.audioSrc) {
       if (this.state.isPlaying && isSameSong) {
-        return (<ion-icon name="pause" />);
+        return (<span className="ion-pause"></span>);
       }
       if (this.state.isPaused && isSameSong) {
-        return (<ion-icon name="pause" />);
+        return (<span className="ion-pause"></span>);
        } else {
-        return (<ion-icon name="play" />);
+        return (<span className="ion-play"></span>);
       }
     }
 
@@ -103,6 +112,13 @@ class Album extends Component {
                   }
           </tbody>
         </table>
+        <PlayerBar
+          isPlaying={this.state.isPlaying}
+          currentSong={this.state.currentSong}
+          handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+          handlePrevClick={() => this.handlePrevClick()}
+        />
+
       </section>
     );
   }

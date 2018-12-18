@@ -16,7 +16,6 @@ class App extends Component {
           <Route exact path='/' component={Landing} />
           <Route path='/library' component={Library} />
           <Route path='/album/:slug' component={Album} />
-          <script src="https://unpkg.com/ionicons@4.5.0/dist/ionicons.js"></script>
         </main>
       </div>
     );
