@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import albumData from './../data/albums';
-
+import albumData from '../data/albums';
 
 
 class Album extends Component {
@@ -15,14 +14,16 @@ class Album extends Component {
     this.state = {
       album: album,
       currentSong: album.songs[0],
-      isPlaying: false
+      isPlaying: false,
+      isHovered: null,
     };
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
   }
+
   play() {
-      this.audioElement.play();
-      this.setState({ isPlaying: true });
+    this.audioElement.play();
+    this.setState({ isPlaying: true });
   }
 
   pause() {
@@ -44,6 +45,26 @@ class Album extends Component {
       this.play();
     }
   }
+
+  renderNumber(song, songNumber) {
+    var isSameSong = this.state.currentSong ===song;
+    if (this.state.isHovered && this.state.isHovered.audioSrc === song.audioSrc) {
+      if (this.state.isPlaying && isSameSong) {
+        return (<ion-icon name="pause" />);
+      } else {
+        return (<ion-icon name="play" />);
+      }
+    }
+
+    return songNumber;
+  }
+
+  handleSongHover(song) {
+    this.setState({
+      isHovered: song
+    });
+  }
+
   render() {
     return (
       <section className="album">
@@ -63,13 +84,17 @@ class Album extends Component {
           </colgroup>
           <tbody id="songs-table-body">
               {
-              this.state.album.songs.map( (songs, index) =>
-                <Link to={`songs/${songs.index}`} key={index} onClick={() => this.handleSongClick(songs)}>
-                <div id="songs-table-div">
-                  <tr>{index + 1}</tr>
-                  <tr>{songs.title}</tr>
-                  <tr>{songs.duration}</tr>
-                </div>
+              this.state.album.songs.map( (song, index) =>
+                <Link to={`songs/${song.index}`}
+                key={index}
+                onClick={() => this.handleSongClick(song)}
+                onMouseEnter={() => this.handleSongHover(song)}
+                onMouseLeave={() =>this.handleSongHover()}>
+                  <div id="songs-table-div">
+                    <tr>{this.renderNumber(song, index + 1)}</tr>
+                    <tr>{song.title}</tr>
+                    <tr>{song.duration}</tr>
+                  </div>
                 </Link>
                   )
                   }
