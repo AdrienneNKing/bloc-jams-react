@@ -100,11 +100,13 @@ handleTimeChange(e) {
 }
 
 formatTime(time) {
-  debugger
-  const formattedMinutes = time / 60;
-  const formattedSeconds = time % 60;
+  Math.floor(time / 3600)
+  time %= 3600
+  const formattedMinutes = parseInt(time / 60);
+  const formattedSeconds = parseInt(time % 60);
   const formattedTime = `${formattedMinutes  }:${  formattedSeconds}`;
-}
+  return ((time === NaN) ? "-:--" : formattedTime);
+};
 
 handleVolumeChange(e) {
   this.audioElement.volume = parseFloat(e.target.value);
