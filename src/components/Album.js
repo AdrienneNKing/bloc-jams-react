@@ -164,7 +164,7 @@ handleVolumeChange(e) {
                     <div id="songs-table-div">
                       <tr>{this.renderNumber(song, index + 1)}</tr>
                       <tr>{song.title}</tr>
-                      <tr>{song.duration}</tr>
+                      <tr>{this.formatTime(song.duration)}</tr>
                     </div>
                   </Link>
                 )
