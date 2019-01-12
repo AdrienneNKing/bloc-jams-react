@@ -104,7 +104,7 @@ formatTime(time) {
   time %= 3600
   const formattedMinutes = parseInt(time / 60);
   const formattedSeconds = parseInt(time % 60);
-  const formattedTime = `${formattedMinutes  }:${  formattedSeconds}`;
+  const formattedTime = ('0' + formattedMinutes).slice(-2)+':'+('0' + formattedSeconds).slice(-2);
   return ((time === NaN) ? "-:--" : formattedTime);
 };
 
