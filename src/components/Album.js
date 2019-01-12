@@ -153,23 +153,17 @@ handleVolumeChange(e) {
             <col id="song-duration-column" />
           </colgroup>
           <tbody id="songs-table-body">
-          {
-              this.state.album.songs.map( (song, index) => {
-                return (
-                  <Link to={`${song.audioSrc}`}
-                  key={index}
-                  onClick={(e) => this.handleSongClick(e, song)}
-                  onMouseEnter={() => this.handleSongHover(song)}
-                  onMouseLeave={() =>this.handleSongHover(song)}>
-                    <div id="songs-table-div">
-                      <tr>{this.renderNumber(song, index + 1)}</tr>
-                      <tr>{song.title}</tr>
-                      <tr>{this.formatTime(song.duration)}</tr>
-                    </div>
-                  </Link>
-                )
-              })
-           }
+          {this.state.album.songs.map((song, index) =>
+            <tr key={index}
+                onClick={(e) => this.handleSongClick(e, song)}
+                onMouseEnter={() => this.handleSongHover(song)}
+                onMouseLeave={() =>this.handleSongHover(song)}
+            >
+              <td>{this.renderNumber(song, index + 1)}</td>
+              <td>{song.title}</td>
+              <td>{this.formatTime(song.duration)}</td>
+            </tr>
+          )}
           </tbody>
         </table>
         <PlayerBar
